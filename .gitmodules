@@ -1,0 +1,3 @@
+[submodule "spblas"]
+	path = spblas
+	url = https://github.com/SparseBLAS/spblas-reference.git
