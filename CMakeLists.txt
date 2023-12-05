@@ -1,23 +1,22 @@
-cmake_minimum_required(VERSION 3.20)
-project(spblas-miniapps VERSION 1.0)
+cmake_minimum_required(VERSION 3.2)
 
-# Include the subdirectory containing the header-only library
-add_subdirectory(miniapps)
-add_subdirectory(test)
-add_subdirectory(spblas)
+project(miniapps)
 
-# Add the main executable
-add_executable(spblas-miniapps main.cpp)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake")
+
+# configure the build
+enable_testing()
+include(build_options)
+include(version)
 
 # find dependencies
-find_package(lapackpp REQUIRED)
-if(NOT lapackpp_FOUND)
-    message(FATAL_ERROR "LAPACK++ not found. Please install it.")
-endif()
+include(miniapps_spblas)
+include(lapackpp)
 
-# Link the main executable with the library
-target_link_libraries(spblas-miniapps PRIVATE miniapps)
-target_link_libraries(spblas-miniapps PRIVATE spblas)
+# compile sources
+add_subdirectory(src)  # loads src/CMakeLists.txt
+add_subdirectory(test)
 
-include_directories(${lapackpp_INCLUDE_DIRS})
-target_link_libraries(spblas-miniapps PRIVATE ${lapackpp_LIBRARIES})
+# export the configuration
+include(config)
+

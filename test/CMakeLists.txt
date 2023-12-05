@@ -1,17 +1,12 @@
-# Create an executable for tests
-add_executable(test_rbki test_rbki.cpp)
-add_executable(test_rsvd test_rsvd.cpp)
+message(STATUS "Checking for regression tests ...")
+find_package(GTest)
+set(tmp FALSE)
+if (GTest_FOUND)
+    set(tmp TRUE)
 
-# Link the test executables with the library
-target_link_libraries(test_rbki PRIVATE miniapps)
-target_link_libraries(test_rsvd PRIVATE miniapps)
+    add_executable(miniapps_tests src/comps/test_determiter.cc)
+    target_link_libraries(miniapps_tests miniapps GTest::GTest GTest::Main)
+    gtest_discover_tests(miniapps_tests)
 
-# Include the testing framework (e.g., Google Test)
-# This assumes you have Google Test installed or added to your project
-# Add appropriate commands depending on your testing framework
-
-target_include_directories(test_rbki PRIVATE ${GTEST_INCLUDE_DIRS})
-target_link_libraries(test_rbki PRIVATE ${GTEST_LIBRARIES})
-
-target_include_directories(test_rsvd PRIVATE ${GTEST_INCLUDE_DIRS})
-target_link_libraries(test_rsvd PRIVATE ${GTEST_LIBRARIES})
+endif()
+message(STATUS "Checking for regression tests ... ${tmp}")
