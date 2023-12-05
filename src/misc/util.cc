@@ -1,11 +1,11 @@
-#include <miniapps/randnla/cqrrpt.hh>
+#include <miniapps/misc/util.hh>
 #include <iostream>
 
 
-namespace miniapps::randnla::cqrrpt {
+namespace miniapps::misc::util {
 
 template <typename T>
-void cqrrpt(
+void smth(
 	int64_t m
 	)
 {

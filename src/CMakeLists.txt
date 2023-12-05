@@ -1,5 +1,6 @@
 set(miniapps_cxx_srcs
-    comps/determiter.cc
+    randnla/cqrrpt.cc
+    misc/util.cc
 )
 
 set(miniapps_libs

@@ -9,7 +9,7 @@ namespace miniapps::misc::util {
 
 template <typename T>
 void smth(
-	int64_t m,
+	int64_t m
 );
 
 } 

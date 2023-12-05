@@ -9,7 +9,7 @@ namespace miniapps::randnla::cqrrpt {
 
 template <typename T>
 void cqrrpt(
-	int64_t m,
+	int64_t m
 );
 
 } 

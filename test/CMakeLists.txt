@@ -4,7 +4,7 @@ set(tmp FALSE)
 if (GTest_FOUND)
     set(tmp TRUE)
 
-    add_executable(miniapps_tests src/comps/test_determiter.cc)
+    add_executable(miniapps_tests src/randnla/test_cqrrpt.cc)
     target_link_libraries(miniapps_tests miniapps GTest::GTest GTest::Main)
     gtest_discover_tests(miniapps_tests)
 

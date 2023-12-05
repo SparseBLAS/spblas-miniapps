@@ -10,7 +10,7 @@ include(build_options)
 include(version)
 
 # find dependencies
-include(miniapps_spblas)
+#include(miniapps_spblas)
 include(lapackpp)
 
 # compile sources
