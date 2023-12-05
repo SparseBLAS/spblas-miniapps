@@ -15,6 +15,10 @@ endif()
 find_dependency(spblas)
 include(miniapps_spblas)
 
+if (NOT blaspp)
+    set(blaspp_DIR @blaspp_DIR@)
+endif()
+find_dependency(blaspp)
 include(miniapps_blaspp)
 
 # LAPACK++

@@ -10,8 +10,9 @@ include(build_options)
 include(version)
 
 # find dependencies
-#include(miniapps_spblas)
+include(spblas)
 include(lapackpp)
+include(blaspp)
 
 # compile sources
 add_subdirectory(src)  # loads src/CMakeLists.txt
