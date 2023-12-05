@@ -10,7 +10,7 @@ include(build_options)
 include(version)
 
 # find dependencies
-include(spblas)
+#include(spblas)
 include(lapackpp)
 include(blaspp)
 
