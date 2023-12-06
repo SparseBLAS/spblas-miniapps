@@ -1,5 +1,3 @@
-configure_file(miniapps_config.h.in miniapps_config.h)
-install(FILES ${CMAKE_BINARY_DIR}/miniapps_config.h DESTINATION include/miniapps)
 
 configure_file(CMake/miniappsConfig.cmake.in
     ${CMAKE_INSTALL_LIBDIR}/cmake/miniappsConfig.cmake @ONLY)

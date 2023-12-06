@@ -7,24 +7,22 @@ set(miniapps_VERSION_MINOR "@miniapps_VERSION_MINOR@")
 set(miniapps_VERSION_PATCH "@miniapps_VERSION_PATCH@")
 set(miniapps_VERSION_DEVEL "@miniapps_VERSION_DEVEL@")
 
-# BLAS
-
+# spblas
 if (NOT spblas_DIR)
-    set(spblas_DIR @spblas_DIR@)
+    set(spblas_DIR ${CMAKE_CURRENT_LIST_DIR})
 endif()
 find_dependency(spblas)
-include(miniapps_spblas)
 
-if (NOT blaspp)
+# blas++
+if (NOT blaspp_DIR)
     set(blaspp_DIR @blaspp_DIR@)
 endif()
 find_dependency(blaspp)
-include(miniapps_blaspp)
 
-# LAPACK++
-
+# lapack++
 if (NOT lapackpp_DIR)
     set(lapackpp_DIR @lapackpp_DIR@)
 endif()
 find_dependency(lapackpp)
-include(miniapps_lapackpp)
+
+include(miniapps)

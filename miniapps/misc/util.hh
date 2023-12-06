@@ -1,9 +1,18 @@
-#include <miniapps/misc/util.hh>
+#ifndef miniapps_util_h
+#define miniapps_util_h
+
+#include "rl_blaspp.hh"
+#include "rl_lapackpp.hh"
+
 #include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <vector>
+#include <cstdint>
 
+namespace miniapps::util {
 
-namespace miniapps::misc::util {
-
+/// A version of the above function to be used on a vector of integers
 template <typename T>
 void col_swap(
     int64_t m,
@@ -28,4 +37,5 @@ void col_swap(
     }
 }
 
-} 
+} // end namespace util
+#endif
