@@ -3,7 +3,7 @@
 #ifndef LINALG_HH
 #include <blas.hh>
 #include <lapack.hh>
-#define BLAS_HH
+#define LINALG_HH
 #endif
 
 
