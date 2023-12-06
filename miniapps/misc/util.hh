@@ -32,7 +32,7 @@ void col_swap(
 
         // swap idx array elements
         // Find idx element with value i and assign it to j
-        auto it = std::find<T>(idx.begin() + i, idx.begin() + k, i + 1);
+        auto it = std::find(idx.begin() + i, idx.begin() + k, i + 1);
         idx[it - (idx.begin())] = j + 1;
     }
 }

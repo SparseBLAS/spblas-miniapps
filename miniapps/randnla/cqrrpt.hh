@@ -4,13 +4,14 @@
 #include "util.hh"
 #include "rl_blaspp.hh"
 #include "rl_lapackpp.hh"
+//#include <spblas/spblas.hpp>
+//#include <fmt/core.h>
+//#include <fmt/ranges.h>
 
 #include <cstdint>
 #include <vector>
 #include <chrono>
 #include <numeric>
-
-using namespace std::chrono;
 
 namespace miniapps {
 
@@ -132,6 +133,17 @@ int CQRRPT<T>::call(
     );
     */
 
+    /*
+    /// SparseBLAS style
+    auto&& [values, rowptr, colind, shape, _] = generate_csr<T>(d, m, nnz);
+    csr_view<T> s(values, rowptr, colind, shape, nnz);
+    md::mdspan a(A, m, n);
+    md::mdspan ahat(A_hat, d, n);
+
+    multiply(s, a, ahat);
+    A_hat = ahat.data_handle();
+    */
+
     /// Performing QRCP on a sketch
     lapack::geqp3(d, n, A_hat, d, J, tau);
 
@@ -186,7 +198,6 @@ int CQRRPT<T>::call(
     }
 
     blas::trsm(Layout::ColMajor, Side::Right, Uplo::Upper, Op::NoTrans, Diag::NonUnit, m, new_rank, 1.0, R_sp, k, A, lda);
-
     // Get the final R-factor.
     blas::trmm(Layout::ColMajor, Side::Left, Uplo::Upper, Op::NoTrans, Diag::NonUnit, new_rank, n, 1.0, R_sp, k, R, ldr);
 

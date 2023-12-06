@@ -1,6 +1,7 @@
 #include "miniapps.hh"
 #include "rl_blaspp.hh"
 #include "rl_lapackpp.hh"
+//#include <spblas/spblas.hpp>
 
 #include <fstream>
 #include <gtest/gtest.h>
@@ -58,8 +59,9 @@ class TestCQRRPT : public ::testing::Test
         auto n = all_data.col;
         auto k = all_data.rank;
 
-        //miniapps::util::upsize(k * k, all_data.I_ref);
-        //miniapps::util::eye(k, k, all_data.I_ref);
+        all_data.I_ref.resize(k * k, 0.0);
+        for(int i = 0; i < k; ++i)
+            all_data.I_ref[(k + 1) * i] = 1.0;
 
         T* A_dat         = all_data.A_cpy1.data();
         T const* A_cpy_dat = all_data.A_cpy2.data();
@@ -134,6 +136,8 @@ TEST_F(TestCQRRPT, CQRRPT_full_rank_no_hqrrp) {
 
     CQRRPTTestData<double> all_data(m, n, k);
     miniapps::CQRRPT<double> CQRRPT(tol);
+    // Generate dense matrix
+    //auto [all_data.A, a_shape] = spblas::generate_dense<double>(m, n);
 
     norm_and_copy_computational_helper<double>(norm_A, all_data);
     test_CQRRPT_general<double, miniapps::CQRRPT<double>>(d_factor, norm_A, all_data, CQRRPT);
