@@ -7,7 +7,7 @@ set(miniapps_cxx_sources
 set(miniapps_libs
     lapackpp
     blaspp
-    spblas
+    ${spblas_SOURCE_DIR}/include/spblas/
 )
 if (miniapps_HAS_OpenMP)
     list(APPEND miniapps_libs OpenMP::OpenMP_CXX)
