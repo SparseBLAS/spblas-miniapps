@@ -4,6 +4,9 @@ project(miniapps)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # configure the build
 enable_testing()
 
@@ -24,12 +27,6 @@ FetchContent_Declare(
   GIT_TAG main)
 FetchContent_MakeAvailable(spblas)
 # Fetch and populate the content of the external project
-FetchContent_GetProperties(spblas)
-if(NOT spblas_POPULATED)
-    FetchContent_Populate(spblas)
-    # Now you can use the content of the external project
-    add_subdirectory(${spblas_SOURCE_DIR} ${spblas_BINARY_DIR})
-endif()
 
 # compile sources
 add_subdirectory(miniapps)

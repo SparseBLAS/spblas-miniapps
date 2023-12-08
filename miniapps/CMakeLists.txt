@@ -7,7 +7,7 @@ set(miniapps_cxx_sources
 set(miniapps_libs
     lapackpp
     blaspp
-    ${spblas_SOURCE_DIR}/include/spblas/
+    spblas
 )
 if (miniapps_HAS_OpenMP)
     list(APPEND miniapps_libs OpenMP::OpenMP_CXX)
@@ -65,8 +65,8 @@ install(
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
-install(
-    EXPORT miniapps
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
-    EXPORT_LINK_INTERFACE_LIBRARIES
-)
+# install(
+#     EXPORT miniapps
+#     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
+#     EXPORT_LINK_INTERFACE_LIBRARIES
+# )
