@@ -1,7 +1,7 @@
 #include "miniapps.hh"
 #include "rl_blaspp.hh"
 #include "rl_lapackpp.hh"
-//#include <spblas/spblas.hpp>
+#include <spblas/spblas.hpp>
 
 #include <fstream>
 #include <gtest/gtest.h>
@@ -127,17 +127,20 @@ class TestCQRRPT : public ::testing::Test
 
 // Note: If Subprocess killed exception -> reload vscode
 TEST_F(TestCQRRPT, CQRRPT_full_rank_no_hqrrp) {
-    int64_t m = 10000;
-    int64_t n = 200;
-    int64_t k = 200;
+    int64_t m = 10;
+    int64_t n = 5;
+    int64_t k = 5;
     double d_factor = 2;
     double norm_A = 0;
+    int64_t nnz = 2;
     double tol = std::pow(std::numeric_limits<double>::epsilon(), 0.85);
 
     CQRRPTTestData<double> all_data(m, n, k);
-    miniapps::CQRRPT<double> CQRRPT(tol);
+    miniapps::CQRRPT<double> CQRRPT(tol, nnz);
     // Generate dense matrix
-    //auto [all_data.A, a_shape] = spblas::generate_dense<double>(m, n);
+    auto [buf, a_shape] = spblas::generate_dense<double>(m, n);
+
+    lapack::lacpy(MatrixType::General, m, n, buf.data(), m, all_data.A.data(), m);
 
     norm_and_copy_computational_helper<double>(norm_A, all_data);
     test_CQRRPT_general<double, miniapps::CQRRPT<double>>(d_factor, norm_A, all_data, CQRRPT);

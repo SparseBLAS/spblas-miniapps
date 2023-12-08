@@ -5,8 +5,6 @@
 #include "rl_blaspp.hh"
 #include "rl_lapackpp.hh"
 #include <spblas/spblas.hpp>
-//#include <fmt/core.h>
-//#include <fmt/ranges.h>
 
 #include <cstdint>
 #include <vector>
@@ -36,8 +34,9 @@ class CQRRPTalg {
 template <typename T>
 class CQRRPT : public CQRRPTalg<T> {
     public:
-        CQRRPT(T ep) {
+        CQRRPT(T ep, int64_t nz) {
             eps = ep;
+            nnz = nz;
         }
 
         /// Computes a QR factorization with column pivots of the form:
@@ -91,6 +90,7 @@ class CQRRPT : public CQRRPTalg<T> {
 
     public:
         T eps;
+        int64_t nnz;
         int64_t rank;
 };
 
@@ -133,16 +133,31 @@ int CQRRPT<T>::call(
     );
     */
 
-    /*
     /// SparseBLAS style
-    auto&& [values, rowptr, colind, shape, _] = generate_csr<T>(d, m, nnz);
-    csr_view<T> s(values, rowptr, colind, shape, nnz);
-    md::mdspan a(A, m, n);
-    md::mdspan ahat(A_hat, d, n);
+    auto&& [values, rowptr, colind, shape, _] = spblas::generate_csr<T>(d, m, nnz);
+    spblas::csr_view<T> s(values, rowptr, colind, shape, nnz);
+    spblas::__mdspan::mdspan a(A, m, n);
+    spblas::__mdspan::mdspan ahat(A_hat, d, n);
+    
+    printf("\n");
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            printf("%f ", *(A + (i * m) + j));
+        }
+        printf("\n");
+    }
+    printf("\n");
 
-    multiply(s, a, ahat);
+    spblas::multiply(s, a, ahat);
     A_hat = ahat.data_handle();
-    */
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < d; ++j) {
+            printf("%f ", *(A_hat + (i * m) + j));
+        }
+        printf("\n");
+    }
+
 
     /// Performing QRCP on a sketch
     lapack::geqp3(d, n, A_hat, d, J, tau);
