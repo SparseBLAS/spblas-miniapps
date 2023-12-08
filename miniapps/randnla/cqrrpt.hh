@@ -4,7 +4,7 @@
 #include "util.hh"
 #include "rl_blaspp.hh"
 #include "rl_lapackpp.hh"
-#include <spblas.hpp>
+#include <spblas/spblas.hpp>
 //#include <fmt/core.h>
 //#include <fmt/ranges.h>
 
