@@ -142,7 +142,7 @@ int CQRRPT<T>::call(
     /// Perform dense sketching for the sake of tests passing.
     /// This is not the intended behavior for this algorithm, as dense sketching 
     /// tanks the performance of CQRRPT.
-    auto [buf, a_shape] = spblas::generate_dense<double>(d, m);
+    auto [buf, a_shape] = spblas::generate_gaussian<double>(d, m);
     spblas::__mdspan::mdspan s(buf.data(), d, m);
 
     spblas::__mdspan::mdspan a(A, m, n);
