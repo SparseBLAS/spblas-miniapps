@@ -1,10 +1,16 @@
-#ifndef RANDLAPACK_HH
-#define RANDLAPACK_HH
+#ifndef SPBLAS_MINIAPPS_HH
+#define SPBLAS_MINIAPPS_HH
 
 // misc
-#include "miniapps/misc/util.hh"
+#include "miniapps/util.hh"
 
 // randnla
-#include "miniapps/randnla/cqrrpt.hh"
+#include "miniapps/cqrrpt.hh"
+
+// cg
+#include "miniapps/cg.hh"
+
+// bicgstab
+#include "miniapps/bicgstab.hh"
 
 #endif
