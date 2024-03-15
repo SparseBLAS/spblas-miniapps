@@ -4,6 +4,9 @@
 // misc
 #include "miniapps/util.hh"
 
+// misc
+#include "miniapps/matrix_utils.hh"
+
 // randnla
 #include "miniapps/cqrrpt.hh"
 
@@ -13,4 +16,4 @@
 // bicgstab
 #include "miniapps/bicgstab.hh"
 
-#endif
+#endif // SPBLAS_MINIAPPS_HH

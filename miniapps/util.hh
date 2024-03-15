@@ -3,6 +3,7 @@
 
 #include "rl_blaspp.hh"
 #include "rl_lapackpp.hh"
+#include <spblas/spblas.hpp>
 
 #include <iostream>
 #include <cmath>
