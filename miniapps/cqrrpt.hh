@@ -1,15 +1,15 @@
 #ifndef miniapps_cqrrpt_h
 #define miniapps_cqrrpt_h
 
-#include "util.hh"
-#include "rl_blaspp.hh"
-#include "rl_lapackpp.hh"
-#include <spblas/spblas.hpp>
-
 #include <cstdint>
 #include <vector>
 #include <chrono>
 #include <numeric>
+
+#include "util.hh"
+#include "rl_blaspp.hh"
+#include "rl_lapackpp.hh"
+#include <spblas/spblas.hpp>
 
 namespace miniapps {
 

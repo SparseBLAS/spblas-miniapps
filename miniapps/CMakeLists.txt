@@ -1,9 +1,3 @@
-
-set(miniapps_cxx_sources
-    util.hh
-    cqrrpt.hh
-)
-
 set(miniapps_libs
     lapackpp
     blaspp
@@ -18,6 +12,11 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/rl_config.hh
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/miniapps)
 
 add_library(miniapps INTERFACE)
+target_include_directories(miniapps INTERFACE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 
 set(miniapps_cxx_opts -Wall -Wextra)
 if (SANITIZE_ADDRESS)
@@ -25,25 +24,6 @@ if (SANITIZE_ADDRESS)
     target_link_options(miniapps INTERFACE -fsanitize=address)
 endif()
 target_compile_options(miniapps INTERFACE ${miniapps_cxx_opts})
-
-#set_source_files_properties(${miniapps_cxx_sources}
-#    PROPERTIES COMPILE_OPTIONS "${miniapps_cxx_opts}"
-#)
-
-target_include_directories(
-    miniapps INTERFACE
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/..>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/comps>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/drivers>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/misc>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/miniapps>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/miniapps/comps>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/miniapps/drivers>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/miniapps/misc>
-)
 
 target_link_libraries(miniapps INTERFACE ${miniapps_libs})
 
@@ -54,6 +34,11 @@ install(
 
 install(
     DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    DESTINATION include FILES_MATCHING PATTERN "*.hh"
+)
+
+install(
+    DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
     DESTINATION include FILES_MATCHING PATTERN "*.hh"
 )
 
