@@ -25,7 +25,7 @@ template <typename T> struct matrix_data {
 
   matrix_data(std::vector<std::size_t> rowind, std::vector<std::size_t> colind,
               std::vector<T> values, spblas::index<std::size_t> shape)
-      : num_rows{shape.template get<0>()}, num_cols{shape.template get<1>()} {
+      : num_rows{shape[0]}, num_cols{shape[1]} {
     assert(rowind.size() == colind.size() && rowind.size() == values.size());
     for (std::size_t i = 0; i < values.size(); i++) {
       nonzeros.emplace_back(rowind[i], colind[i], values[i]);
@@ -123,7 +123,7 @@ template <typename T> struct matrix_data {
 template <typename I = std::size_t>
 auto convert_rowind_to_rowptr(std::vector<I> rowind, std::size_t nnz,
                               spblas::index<I> shape) {
-  auto num_rows = shape.template get<0>();
+  auto num_rows = shape[0];
   std::vector<I> rowptr(num_rows + 1, 0);
   assert(rowind.size() == nnz);
 
